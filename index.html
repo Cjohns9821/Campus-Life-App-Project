@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="styles.css">
     <title>Campus Life App - Home</title>
 </head>
+
 <body>
     <!-- Navigation bar for internal navigation between all pages -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.html"> Campus Life</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="index.html">Campus Life</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
@@ -32,16 +35,25 @@
         </div>
     </nav>
 
-    <!-- Hero Section: Welcome banner with call-to-action -->
+    <!-- Hero Section -->
     <div class="hero-section bg-light py-5">
         <div class="container">
             <h1 class="display-4">Welcome to Campus Life</h1>
             <p class="lead">Your one-stop hub for events, announcements, and campus activities</p>
+
+            <!-- Button to trigger API placeholder -->
+            <button id="loadCampusNewsBtn" class="btn btn-primary mt-3">
+                Load Campus News
+            </button>
+
+            <!-- Placeholder section where API results will appear -->
+            <div id="campusNewsSection" class="mt-3"></div>
+
             <a href="events.html" class="btn btn-primary btn-lg mt-3">Browse Events</a>
         </div>
     </div>
 
-    <!-- Quick Stats Section: Display key metrics about campus -->
+    <!-- Quick Stats Section -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-4 mb-4">
@@ -52,6 +64,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4 mb-4">
                 <div class="card stat-card text-center">
                     <div class="card-body">
@@ -60,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4 mb-4">
                 <div class="card stat-card text-center">
                     <div class="card-body">
@@ -71,40 +85,44 @@
         </div>
     </div>
 
-    <!-- Featured Events Section: Show top upcoming events -->
+    <!-- Featured Events Section -->
     <div class="container my-5">
         <h2>Featured Events</h2>
         <p>Don't miss out on these exciting campus activities</p>
+
         <div class="row" id="featuredEventsContainer">
             <!-- Featured events will be populated by JavaScript -->
         </div>
     </div>
 
-    <!-- Quick Links Section: Navigation shortcuts -->
+    <!-- Quick Links Section -->
     <div class="container my-5">
         <h2>Quick Links</h2>
         <div class="row">
             <div class="col-md-3">
                 <div class="quick-link">
-                    <h5> Academic Resources</h5>
+                    <h5>Academic Resources</h5>
                     <p>Access tutoring and study resources</p>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="quick-link">
-                    <h5> Sports & Recreation</h5>
+                    <h5>Sports & Recreation</h5>
                     <p>Join sports clubs and fitness programs</p>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="quick-link">
-                    <h5> Cultural Events</h5>
+                    <h5>Cultural Events</h5>
                     <p>Celebrate diverse cultures on campus</p>
                 </div>
             </div>
+
             <div class="col-md-3">
                 <div class="quick-link">
-                    <h5> Career Services</h5>
+                    <h5>Career Services</h5>
                     <p>Find internships and job opportunities</p>
                 </div>
             </div>
@@ -118,10 +136,13 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Scripts (Bootstrap + Your JS) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
+
+    <!-- Your JavaScript file (correct placement) -->
+    <script src="script.js"></script>
 </body>
 </html>
+
