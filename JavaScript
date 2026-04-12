@@ -1,80 +1,57 @@
 /* ============================================================
    Campus Life App - Main JavaScript File
-   Author: (Your Name)
+   Author: Carlin Johnson
    Description:
-   - Handles button events
    - Demonstrates event-driven programming
    - Includes placeholder API integration
-   - Logs activity for debugging
+   - Updates the DOM with fallback content
    ============================================================ */
 
 /* -------------------------------
-   EVENT: Navigation Button Clicks
+   EVENT: Load Campus News Button
    ------------------------------- */
 
-// Example: A button that loads announcements dynamically
-const announcementsBtn = document.getElementById("loadAnnouncementsBtn");
+const newsBtn = document.getElementById("loadCampusNewsBtn");
 
-if (announcementsBtn) {
-    announcementsBtn.addEventListener("click", () => {
-        console.log("Announcements button clicked");
-        loadAnnouncements();
+if (newsBtn) {
+    newsBtn.addEventListener("click", () => {
+        console.log("Campus News button clicked");
+        loadCampusNews();
     });
 }
 
 /* -------------------------------
-   FUNCTION: Load Announcements
-   Placeholder for future API call
+   FUNCTION: Load Campus News
+   Placeholder API call
    ------------------------------- */
 
-function loadAnnouncements() {
+function loadCampusNews() {
     // Placeholder API URL (not functional yet)
-    const apiURL = "https://api.example.com/announcements";
+    const apiURL = "https://api.example.com/campus-news";
 
-    console.log("Attempting to fetch announcements from:", apiURL);
+    console.log("Attempting to fetch campus news from:", apiURL);
 
-    // Example fetch call (will fail until API exists)
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
             console.log("API Response:", data);
 
             // TODO: Replace with real DOM update
-            alert("Announcements loaded! (Placeholder)");
+            alert("Campus news loaded! (Placeholder)");
         })
         .catch(error => {
             console.warn("API not functional yet. This is expected.", error);
 
-            // Placeholder fallback content
-            const announcementsSection = document.getElementById("announcementsSection");
-            if (announcementsSection) {
-                announcementsSection.innerHTML = `
-                    <p><strong>Placeholder Announcement:</strong> API not connected yet.</p>
+            // Fallback placeholder content
+            const newsSection = document.getElementById("campusNewsSection");
+            if (newsSection) {
+                newsSection.innerHTML = `
+                    <div class="alert alert-info">
+                        <strong>Placeholder News:</strong> API connection not yet implemented.
+                    </div>
                 `;
             }
         });
-}
-
-/* -------------------------------
-   EVENT: Contact Form Submission
-   ------------------------------- */
-
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm) {
-    contactForm.addEventListener("submit", (event) => {
-        event.preventDefault(); // Prevent page reload
-        console.log("Contact form submitted");
-
-        // Grab form values
-        const name = document.getElementById("nameInput").value;
-        const message = document.getElementById("messageInput").value;
-
-        // Placeholder action
-        alert(`Thanks, ${name}! Your message has been received.`);
-
-        // TODO: Send form data to backend API in future
-    });
 }
 
 /* -------------------------------
