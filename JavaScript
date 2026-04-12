@@ -2,14 +2,16 @@
    Campus Life App - Main JavaScript File
    Author: Carlin Johnson
    Description:
+   - Handles button events across all pages
    - Demonstrates event-driven programming
    - Includes placeholder API integration
    - Updates the DOM with fallback content
    ============================================================ */
 
-/* -------------------------------
-   EVENT: Load Campus News Button
-   ------------------------------- */
+
+/* ------------------------------------------------------------
+   HOME PAGE: Load Campus News (API Placeholder)
+   ------------------------------------------------------------ */
 
 const newsBtn = document.getElementById("loadCampusNewsBtn");
 
@@ -20,42 +22,138 @@ if (newsBtn) {
     });
 }
 
-/* -------------------------------
-   FUNCTION: Load Campus News
-   Placeholder API call
-   ------------------------------- */
-
 function loadCampusNews() {
-    // Placeholder API URL (not functional yet)
-    const apiURL = "https://api.example.com/campus-news";
+    const apiURL = "https://api.example.com/campus-news"; // Placeholder API
 
-    console.log("Attempting to fetch campus news from:", apiURL);
+    console.log("Fetching campus news from:", apiURL);
 
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
             console.log("API Response:", data);
-
-            // TODO: Replace with real DOM update
-            alert("Campus news loaded! (Placeholder)");
         })
         .catch(error => {
-            console.warn("API not functional yet. This is expected.", error);
+            console.warn("API not functional yet. Showing placeholder.", error);
 
-            // Fallback placeholder content
             const newsSection = document.getElementById("campusNewsSection");
             if (newsSection) {
                 newsSection.innerHTML = `
                     <div class="alert alert-info">
-                        <strong>Placeholder News:</strong> API connection not yet implemented.
+                        <strong>Campus News Placeholder:</strong> API connection coming soon!
                     </div>
                 `;
             }
         });
 }
 
-/* -------------------------------
+
+/* ------------------------------------------------------------
+   ANNOUNCEMENTS PAGE: Load Announcements (API Placeholder)
+   ------------------------------------------------------------ */
+
+const announcementsBtn = document.getElementById("loadAnnouncementsBtn");
+
+if (announcementsBtn) {
+    announcementsBtn.addEventListener("click", () => {
+        console.log("Announcements button clicked");
+        loadAnnouncements();
+    });
+}
+
+function loadAnnouncements() {
+    const apiURL = "https://api.example.com/announcements"; // Placeholder API
+
+    console.log("Fetching announcements from:", apiURL);
+
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log("API Response:", data);
+        })
+        .catch(error => {
+            console.warn("API not functional yet. Showing placeholder.", error);
+
+            const announcementsSection = document.getElementById("announcementsSection");
+            if (announcementsSection) {
+                announcementsSection.innerHTML = `
+                    <div class="alert alert-warning">
+                        <strong>Announcements Placeholder:</strong> API integration coming soon!
+                    </div>
+                `;
+            }
+        });
+}
+
+
+/* ------------------------------------------------------------
+   EVENTS PAGE: Load Events (API Placeholder)
+   ------------------------------------------------------------ */
+
+const eventsBtn = document.getElementById("loadEventsBtn");
+
+if (eventsBtn) {
+    eventsBtn.addEventListener("click", () => {
+        console.log("Events button clicked");
+        loadEvents();
+    });
+}
+
+function loadEvents() {
+    const apiURL = "https://api.example.com/events"; // Placeholder API
+
+    console.log("Fetching events from:", apiURL);
+
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log("API Response:", data);
+        })
+        .catch(error => {
+            console.warn("API not functional yet. Showing placeholder.", error);
+
+            const eventsSection = document.getElementById("eventsSection");
+            if (eventsSection) {
+                eventsSection.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>Events Placeholder:</strong> API integration coming soon!
+                    </div>
+                `;
+            }
+        });
+}
+
+
+/* ------------------------------------------------------------
+   CONTACT PAGE: Handle Contact Form Submission
+   ------------------------------------------------------------ */
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent page reload
+        console.log("Contact form submitted");
+
+        const name = document.getElementById("nameInput").value;
+        const email = document.getElementById("emailInput").value;
+        const message = document.getElementById("messageInput").value;
+
+        const responseBox = document.getElementById("contactResponse");
+
+        responseBox.innerHTML = `
+            <div class="alert alert-success mt-3">
+                Thank you, <strong>${name}</strong>! Your message has been received.
+                <br><small>(Email: ${email})</small>
+            </div>
+        `;
+
+        contactForm.reset();
+    });
+}
+
+
+/* ------------------------------------------------------------
    DEBUG MESSAGE
-   ------------------------------- */
+   ------------------------------------------------------------ */
 
 console.log("Campus Life App JavaScript loaded successfully.");
