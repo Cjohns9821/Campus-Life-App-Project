@@ -4,43 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Campus Life App</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Campus Life App - Home</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Campus Life</a>
+    <!-- Navigation bar for internal navigation between all pages -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">🏫 Campus Life</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
+                    <a class="nav-link" href="events.html">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="announcements.html">Announcements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="contact.html">Contact</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container mt-4">
-        <h1>Welcome to Campus Life App</h1>
-        <p>This is your one-stop solution for all campus events and activities.</p>
+
+    <!-- Hero Section: Welcome banner with call-to-action -->
+    <div class="hero-section bg-light py-5">
+        <div class="container">
+            <h1 class="display-4">Welcome to Campus Life</h1>
+            <p class="lead">Your one-stop hub for events, announcements, and campus activities</p>
+            <a href="events.html" class="btn btn-primary btn-lg mt-3">Browse Events</a>
+        </div>
     </div>
+
+    <!-- Quick Stats Section: Display key metrics about campus -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Upcoming Events</h5>
+                        <p class="card-text display-4" id="eventCount">12</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Students</h5>
+                        <p class="card-text display-4">5,234</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stat-card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Campus Clubs</h5>
+                        <p class="card-text display-4">47</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Events Section: Show top upcoming events -->
+    <div class="container my-5">
+        <h2>Featured Events</h2>
+        <p>Don't miss out on these exciting campus activities</p>
+        <div class="row" id="featuredEventsContainer">
+            <!-- Featured events will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Quick Links Section: Navigation shortcuts -->
+    <div class="container my-5">
+        <h2>Quick Links</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="quick-link">
+                    <h5>📚 Academic Resources</h5>
+                    <p>Access tutoring and study resources</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="quick-link">
+                    <h5>🏃 Sports & Recreation</h5>
+                    <p>Join sports clubs and fitness programs</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="quick-link">
+                    <h5>🎭 Cultural Events</h5>
+                    <p>Celebrate diverse cultures on campus</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="quick-link">
+                    <h5>💼 Career Services</h5>
+                    <p>Find internships and job opportunities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2026 Campus Life App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            console.log('DOM fully loaded and parsed');
-            // Add any additional event listeners here
-        });
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
