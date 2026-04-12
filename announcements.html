@@ -1,9 +1,54 @@
-<html>
+\<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Announcements</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Announcements - Campus Life App</title>
 </head>
 <body>
-    <h1>Announcements</h1>
-    <p>Important announcements will be posted here.</p>
+    <!-- Navigation bar connecting to all pages -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="index.html">🎉 Campus Life</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
+                <li class="nav-item active"><a class="nav-link" href="announcements.html">Announcements</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Campus Announcements</h1>
+        <p class="lead">Stay updated with the latest campus news</p>
+
+        <!-- Category Filter Buttons with click event handlers -->
+        <div class="btn-group mb-4" role="group">
+            <button type="button" class="btn btn-outline-primary active" onclick="filterAnnouncements('')">All</button>
+            <button type="button" class="btn btn-outline-primary" onclick="filterAnnouncements('academic')">📚 Academic</button>
+            <button type="button" class="btn btn-outline-primary" onclick="filterAnnouncements('maintenance')">🔧 Maintenance</button>
+            <button type="button" class="btn btn-outline-primary" onclick="filterAnnouncements('emergency')">🚨 Emergency</button>
+        </div>
+
+        <!-- Announcements Container - dynamically populated by JavaScript -->
+        <div id="announcementsContainer">
+            <!-- Announcement items will be rendered here -->
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2026 Campus Life App. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
