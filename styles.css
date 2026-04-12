@@ -1,0 +1,14 @@
+.container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn {
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}
