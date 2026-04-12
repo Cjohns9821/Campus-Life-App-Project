@@ -1,0 +1,84 @@
+/* ============================================================
+   Campus Life App - Main JavaScript File
+   Author: (Your Name)
+   Description:
+   - Handles button events
+   - Demonstrates event-driven programming
+   - Includes placeholder API integration
+   - Logs activity for debugging
+   ============================================================ */
+
+/* -------------------------------
+   EVENT: Navigation Button Clicks
+   ------------------------------- */
+
+// Example: A button that loads announcements dynamically
+const announcementsBtn = document.getElementById("loadAnnouncementsBtn");
+
+if (announcementsBtn) {
+    announcementsBtn.addEventListener("click", () => {
+        console.log("Announcements button clicked");
+        loadAnnouncements();
+    });
+}
+
+/* -------------------------------
+   FUNCTION: Load Announcements
+   Placeholder for future API call
+   ------------------------------- */
+
+function loadAnnouncements() {
+    // Placeholder API URL (not functional yet)
+    const apiURL = "https://api.example.com/announcements";
+
+    console.log("Attempting to fetch announcements from:", apiURL);
+
+    // Example fetch call (will fail until API exists)
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log("API Response:", data);
+
+            // TODO: Replace with real DOM update
+            alert("Announcements loaded! (Placeholder)");
+        })
+        .catch(error => {
+            console.warn("API not functional yet. This is expected.", error);
+
+            // Placeholder fallback content
+            const announcementsSection = document.getElementById("announcementsSection");
+            if (announcementsSection) {
+                announcementsSection.innerHTML = `
+                    <p><strong>Placeholder Announcement:</strong> API not connected yet.</p>
+                `;
+            }
+        });
+}
+
+/* -------------------------------
+   EVENT: Contact Form Submission
+   ------------------------------- */
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent page reload
+        console.log("Contact form submitted");
+
+        // Grab form values
+        const name = document.getElementById("nameInput").value;
+        const message = document.getElementById("messageInput").value;
+
+        // Placeholder action
+        alert(`Thanks, ${name}! Your message has been received.`);
+
+        // TODO: Send form data to backend API in future
+    });
+}
+
+/* -------------------------------
+   DEBUG MESSAGE
+   ------------------------------- */
+
+console.log("Campus Life App JavaScript loaded successfully.");
