@@ -23,7 +23,9 @@ if (newsBtn) {
 }
 
 function loadCampusNews() {
-    const apiURL = "https://api.example.com/campus-news"; // Placeholder API
+    // Campus News
+const apiURL = "https://jsonplaceholder.typicode.com/posts?_limit=3";
+
 
     console.log("Fetching campus news from:", apiURL);
 
