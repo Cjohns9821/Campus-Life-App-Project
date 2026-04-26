@@ -1,3 +1,5 @@
+mkdir -p data
+cat > data/news.json <<'JSON'
 [
   {
     "id": "1",
