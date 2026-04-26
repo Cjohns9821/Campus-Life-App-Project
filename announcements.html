@@ -1,79 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <title>Campus Life App – Announcements</title>
-</head>
+/* ------------------------------------------------------------
+   ANNOUNCEMENTS PAGE: Load Announcements
+------------------------------------------------------------ */
 
-<body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.html">Campus Life</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+const announcementsBtn = document.getElementById("loadAnnouncementsBtn");
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
-                <li class="nav-item active"><a class="nav-link" href="announcements.html">Announcements</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+if (announcementsBtn) {
+    announcementsBtn.addEventListener("click", () => {
+        console.log("Announcements button clicked");
+        loadAnnouncements();
+    });
+}
 
-    <!-- Page Header -->
-    <div class="container mt-5">
-        <h1>Campus Announcements</h1>
-        <p class="lead">Stay updated with the latest news and important updates</p>
+function loadAnnouncements() {
+    const apiURL = "https://api.quotable.io/quotes?limit=3"; // NEW API URL
 
-        <!-- Button to trigger API placeholder -->
-        <button id="loadAnnouncementsBtn" class="btn btn-primary mt-3">
-            Load Latest Announcements
-        </button>
+    console.log("Fetching announcements from:", apiURL);
 
-        <!-- Placeholder where API results will appear -->
-        <div id="announcementsSection" class="mt-4"></div>
+    fetch(apiURL)
+        .then(response => response.json())
+        .then(data => {
+            const announcementsSection = document.getElementById("announcementsSection");
 
-        <!-- Static fallback announcements -->
-        <div class="mt-5">
-            <h3>Recent Updates</h3>
+            // Quotable API returns { results: [...] }
+            const items = data.results;
 
-            <div class="announcement-card p-3 my-3 border rounded">
-                <h5>Library Hours Extended</h5>
-                <p>The campus library will now remain open until midnight during finals week.</p>
-            </div>
+            announcementsSection.innerHTML = items
+                .map(item => `
+                    <div class="announcement-card p-3 my-3 border rounded">
+                        <h5>${item.author}</h5>
+                        <p>${item.content}</p>
+                    </div>
+                `)
+                .join("");
+        })
+        .catch(error => {
+            console.warn("API error. Showing placeholder.", error);
+            const announcementsSection = document.getElementById("announcementsSection");
+            announcementsSection.innerHTML = `
+                <div class="alert alert-warning">
+                    <strong>Announcements Placeholder:</strong>
+                    Live announcements could not be loaded.
+                </div>
+            `;
+        });
+}
 
-            <div class="announcement-card p-3 my-3 border rounded">
-                <h5>New Cafeteria Menu</h5>
-                <p>Healthy meal options have been added to the cafeteria starting this Monday.</p>
-            </div>
-
-            <div class="announcement-card p-3 my-3 border rounded">
-                <h5>Parking Lot Maintenance</h5>
-                <p>Lot C will be closed for resurfacing from April 10–12.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <p>&copy; 2026 Campus Life App. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Your JavaScript file -->
-    <script src="script.js"></script>
-</body>
-</html>
