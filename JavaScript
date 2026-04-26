@@ -10,7 +10,7 @@
 
 
 /* ------------------------------------------------------------
-   HOME PAGE: Load Campus News (API Placeholder)
+   HOME PAGE: Load Campus News (LIVE API)
    ------------------------------------------------------------ */
 
 const newsBtn = document.getElementById("loadCampusNewsBtn");
@@ -23,30 +23,42 @@ if (newsBtn) {
 }
 
 function loadCampusNews() {
-    // Campus News
-const apiURL = "https://jsonplaceholder.typicode.com/posts?_limit=3";
-
+    const apiURL = "https://api.sampleapis.com/futurama/episodes";
 
     console.log("Fetching campus news from:", apiURL);
+
+    const newsSection = document.getElementById("campusNewsSection");
+    newsSection.innerHTML = `
+        <div class="alert alert-info" role="status">
+            Loading campus news...
+        </div>
+    `;
 
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
-            console.log("API Response:", data);
+            const items = data.slice(0, 3); // first 3 items
+
+            newsSection.innerHTML = items
+                .map(item => `
+                    <div class="announcement-card p-3 my-3 border rounded">
+                        <h5>${item.title}</h5>
+                        <p>${item.desc}</p>
+                    </div>
+                `)
+                .join("");
         })
         .catch(error => {
-            console.warn("API not functional yet. Showing placeholder.", error);
+            console.warn("Error loading campus news:", error);
 
-            const newsSection = document.getElementById("campusNewsSection");
-            if (newsSection) {
-                newsSection.innerHTML = `
-                    <div class="alert alert-info">
-                        <strong>Campus News Placeholder:</strong> API connection coming soon!
-                    </div>
-                `;
-            }
+            newsSection.innerHTML = `
+                <div class="alert alert-danger">
+                    Could not load campus news. Please try again later.
+                </div>
+            `;
         });
 }
+
 
 
 /* ------------------------------------------------------------
