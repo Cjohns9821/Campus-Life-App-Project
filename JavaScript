@@ -88,8 +88,8 @@ function loadAnnouncements() {
 
 
 /* ------------------------------------------------------------
-   EVENTS PAGE: Load Events (API Placeholder)
-   ------------------------------------------------------------ */
+   EVENTS PAGE: Load Events (LIVE API)
+------------------------------------------------------------ */
 
 const eventsBtn = document.getElementById("loadEventsBtn");
 
@@ -101,26 +101,43 @@ if (eventsBtn) {
 }
 
 function loadEvents() {
-    const apiURL = "https://api.example.com/events"; // Placeholder API
+    // REAL, FREE, NO‑KEY API that returns news‑style items
+    const apiURL = "https://api.sampleapis.com/news/latest";
 
-    console.log("Fetching events from:", apiURL);
+    console.log("Fetching campus news from:", apiURL);
+
+    const eventsSection = document.getElementById("eventsSection");
+    eventsSection.innerHTML = `
+        <div class="alert alert-info" role="status">
+            Loading campus news...
+        </div>
+    `;
 
     fetch(apiURL)
         .then(response => response.json())
         .then(data => {
             console.log("API Response:", data);
+
+            // Use the first 3 items as “campus news”
+            const items = data.slice(0, 3);
+
+            eventsSection.innerHTML = items
+                .map(item => `
+                    <div class="event-card p-3 my-3 border rounded">
+                        <h5>${item.title}</h5>
+                        <p>${item.description}</p>
+                    </div>
+                `)
+                .join("");
         })
         .catch(error => {
-            console.warn("API not functional yet. Showing placeholder.", error);
+            console.warn("API error. Showing placeholder.", error);
 
-            const eventsSection = document.getElementById("eventsSection");
-            if (eventsSection) {
-                eventsSection.innerHTML = `
-                    <div class="alert alert-success">
-                        <strong>Events Placeholder:</strong> API integration coming soon!
-                    </div>
-                `;
-            }
+            eventsSection.innerHTML = `
+                <div class="alert alert-success">
+                    <strong>Events Placeholder:</strong> Live campus news could not be loaded.
+                </div>
+            `;
         });
 }
 
