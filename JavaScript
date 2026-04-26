@@ -59,44 +59,82 @@ function loadCampusNews() {
         });
 }
 
-
-
 /* ------------------------------------------------------------
-   ANNOUNCEMENTS PAGE: Load Announcements (API Placeholder)
-   ------------------------------------------------------------ */
+   ANNOUNCEMENTS PAGE: Load Announcements (LIVE API)
+------------------------------------------------------------ */
 
 const announcementsBtn = document.getElementById("loadAnnouncementsBtn");
 
 if (announcementsBtn) {
-    announcementsBtn.addEventListener("click", () => {
-        console.log("Announcements button clicked");
-        loadAnnouncements();
-    });
+  announcementsBtn.addEventListener("click", () => {
+    console.log("Announcements button clicked");
+    loadAnnouncements();
+  });
 }
 
 function loadAnnouncements() {
-    const apiURL = "https://api.example.com/announcements"; // Placeholder API
+  const apiURL = "https://api.quotable.io/quotes?limit=4";
 
-    console.log("Fetching announcements from:", apiURL);
+  console.log("Fetching announcements from:", apiURL);
 
-    fetch(apiURL)
-        .then(response => response.json())
-        .then(data => {
-            console.log("API Response:", data);
-        })
-        .catch(error => {
-            console.warn("API not functional yet. Showing placeholder.", error);
+  const announcementsSection = document.getElementById("announcementsSection");
+  if (!announcementsSection) return;
 
-            const announcementsSection = document.getElementById("announcementsSection");
-            if (announcementsSection) {
-                announcementsSection.innerHTML = `
-                    <div class="alert alert-warning">
-                        <strong>Announcements Placeholder:</strong> API integration coming soon!
-                    </div>
-                `;
-            }
-        });
+  // Provide immediate feedback for keyboard and screen reader users
+  announcementsSection.innerHTML = `
+    <div class="alert alert-info" role="status">
+      Loading latest announcements...
+    </div>
+  `;
+
+  fetch(apiURL)
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then(data => {
+      // API returns { results: [...] }
+      const items = data.results || [];
+
+      if (items.length === 0) {
+        announcementsSection.innerHTML = `
+          <div class="alert alert-warning" role="status">
+            No announcements available right now.
+          </div>
+        `;
+        return;
+      }
+
+      announcementsSection.innerHTML = items
+        .map(item => `
+          <article class="announcement-card p-3 my-3 border rounded" aria-labelledby="ann-${item._id}">
+            <h3 id="ann-${item._id}" class="h5">${escapeHtml(item.author)}</h3>
+            <p>${escapeHtml(item.content)}</p>
+          </article>
+        `)
+        .join("");
+    })
+    .catch(error => {
+      console.error("Error loading announcements:", error);
+      announcementsSection.innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          Could not load announcements. Please try again later.
+        </div>
+      `;
+    });
 }
+
+/* Small helper to avoid injecting raw HTML from external sources */
+function escapeHtml(str) {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 
 
 /* ------------------------------------------------------------
