@@ -8,56 +8,96 @@
    - Updates the DOM with fallback content
    ============================================================ */
 
-
 /* ------------------------------------------------------------
-   HOME PAGE: Load Campus News (LIVE API)
-   ------------------------------------------------------------ */
+   HOME PAGE: Load Campus News (local JSON with fallback)
+------------------------------------------------------------ */
 
 const newsBtn = document.getElementById("loadCampusNewsBtn");
 
 if (newsBtn) {
-    newsBtn.addEventListener("click", () => {
-        console.log("Campus News button clicked");
-        loadCampusNews();
-    });
+  newsBtn.addEventListener("click", () => {
+    console.log("Campus News button clicked");
+    loadCampusNews();
+  });
 }
 
 function loadCampusNews() {
-    const apiURL = "https://api.sampleapis.com/futurama/episodes";
+  const localUrl = "data/news.json"; // local file in repo
+  const fallbackApi = "https://api.sampleapis.com/futurama/episodes";
 
-    console.log("Fetching campus news from:", apiURL);
+  const newsSection = document.getElementById("campusNewsSection");
+  if (!newsSection) return;
 
-    const newsSection = document.getElementById("campusNewsSection");
-    newsSection.innerHTML = `
-        <div class="alert alert-info" role="status">
-            Loading campus news...
-        </div>
-    `;
+  newsSection.innerHTML = `
+    <div class="alert alert-info" role="status">
+      Loading campus news...
+    </div>
+  `;
 
-    fetch(apiURL)
-        .then(response => response.json())
-        .then(data => {
-            const items = data.slice(0, 3); // first 3 items
-
-            newsSection.innerHTML = items
-                .map(item => `
-                    <div class="announcement-card p-3 my-3 border rounded">
-                        <h5>${item.title}</h5>
-                        <p>${item.desc}</p>
-                    </div>
-                `)
-                .join("");
+  // Try local JSON first
+  fetch(localUrl)
+    .then(response => {
+      if (!response.ok) throw new Error("Local news not found");
+      return response.json();
+    })
+    .then(data => {
+      renderNewsItems(data, newsSection);
+    })
+    .catch(localError => {
+      console.warn("Local news not found, falling back to public API:", localError);
+      // Fallback to public API
+      fetch(fallbackApi)
+        .then(response => {
+          if (!response.ok) throw new Error("Fallback API failed");
+          return response.json();
         })
-        .catch(error => {
-            console.warn("Error loading campus news:", error);
-
-            newsSection.innerHTML = `
-                <div class="alert alert-danger">
-                    Could not load campus news. Please try again later.
-                </div>
-            `;
+        .then(apiData => {
+          const items = Array.isArray(apiData) ? apiData.slice(0, 3).map(it => ({
+            id: it.id || it.number || it.title,
+            title: it.title || it.name || "Untitled",
+            summary: it.desc || it.synopsis || it.summary || ""
+          })) : [];
+          renderNewsItems(items, newsSection);
+        })
+        .catch(apiError => {
+          console.error("Error loading campus news:", apiError);
+          newsSection.innerHTML = `
+            <div class="alert alert-danger" role="alert">
+              Could not load campus news. Please try again later.
+            </div>
+          `;
         });
+    });
 }
+
+function renderNewsItems(items, container) {
+  if (!Array.isArray(items) || items.length === 0) {
+    container.innerHTML = `<div class="alert alert-warning">No news available right now.</div>`;
+    return;
+  }
+
+  container.innerHTML = items
+    .slice(0, 3)
+    .map(item => `
+      <article class="announcement-card p-3 my-3 border rounded" aria-labelledby="news-${escapeHtml(item.id)}">
+        <h3 id="news-${escapeHtml(item.id)}" class="h5">${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.summary || item.desc || "")}</p>
+      </article>
+    `)
+    .join("");
+}
+
+/* Small helper to avoid injecting raw HTML from external sources */
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 
 /* ------------------------------------------------------------
    ANNOUNCEMENTS PAGE: Load Announcements (LIVE API)
